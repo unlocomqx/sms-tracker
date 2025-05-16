@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {checkPermissions, requestPermissions} from "tauri-plugin-sms-api"
+  import {checkPermissions, onSmsReceived, requestPermissions} from "tauri-plugin-sms-api"
 
   let sms_permission = $state<string>('denied')
 
@@ -18,6 +18,12 @@
     sms_permission = permission
     return permission
   }
+
+  let sms = $state('')
+  onSmsReceived((data) => {
+    console.log('sms received', data)
+    sms = JSON.stringify(data)
+  })
 </script>
 
 <div>
@@ -29,5 +35,9 @@
       :tick: Granted
     {/if}
   {/await}
+</div>
+
+<div>
+  SMS: {sms}
 </div>
 
