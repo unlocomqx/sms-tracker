@@ -13,6 +13,9 @@ importers:
       '@tauri-apps/api':
         specifier: ^2
         version: 2.5.0
+      '@tauri-apps/plugin-geolocation':
+        specifier: ^2.2.4
+        version: 2.2.4
       '@tauri-apps/plugin-opener':
         specifier: ^2
         version: 2.2.6
@@ -426,6 +429,9 @@ packages:
     resolution: {integrity: sha512-rAtHqG0Gh/IWLjN2zTf3nZqYqbo81oMbqop56rGTjrlWk9pTTAjkqOjSL9XQLIMZ3RbeVjveCqqCA0s8RnLdMg==}
     engines: {node: '>= 10'}
     hasBin: true
+
+  '@tauri-apps/plugin-geolocation@2.2.4':
+    resolution: {integrity: sha512-c/kqxMW3DjCl+EzFRRBc2B9J22DqzmQOt02i9IWy3WYXIRF8/krTqZpqNIi2Db2/eWS5dEtS6z5S9sBk6UIr2g==}
 
   '@tauri-apps/plugin-opener@2.2.6':
     resolution: {integrity: sha512-bSdkuP71ZQRepPOn8BOEdBKYJQvl6+jb160QtJX/i2H9BF6ZySY/kYljh76N2Ne5fJMQRge7rlKoStYQY5Jq1w==}
@@ -898,6 +904,10 @@ snapshots:
       '@tauri-apps/cli-win32-arm64-msvc': 2.5.0
       '@tauri-apps/cli-win32-ia32-msvc': 2.5.0
       '@tauri-apps/cli-win32-x64-msvc': 2.5.0
+
+  '@tauri-apps/plugin-geolocation@2.2.4':
+    dependencies:
+      '@tauri-apps/api': 2.5.0
 
   '@tauri-apps/plugin-opener@2.2.6':
     dependencies:
