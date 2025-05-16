@@ -13,16 +13,16 @@
 
   async function requestSmsPermissions() {
     console.log('request permissions')
-    const permission = await requestPermissions()
-    console.log('result', permission)
-    sms_permission = permission
-    return permission
+    const {sms} = await requestPermissions()
+    console.log('result', sms)
+    sms_permission = sms
+    return sms
   }
 
   let sms = $state('')
-  onSmsReceived((data) => {
-    console.log('sms received', data)
-    sms = JSON.stringify(data)
+  onSmsReceived(({body, from}) => {
+    console.log('sms received', body)
+    sms = JSON.stringify(from)
   })
 </script>
 

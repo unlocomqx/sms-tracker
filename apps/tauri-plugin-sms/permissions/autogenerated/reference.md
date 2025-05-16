@@ -7,6 +7,7 @@ Default permissions for the plugin
 - `allow-check-permissions`
 - `allow-request-permissions`
 - `allow-register-listener`
+- `allow-registerListener`
 
 ## Permission Table
 
@@ -91,6 +92,32 @@ Enables the ping command without any pre-configured scope.
 <td>
 
 Denies the ping command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`sms:allow-registerListener`
+
+</td>
+<td>
+
+Enables the registerListener command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`sms:deny-registerListener`
+
+</td>
+<td>
+
+Denies the registerListener command without any pre-configured scope.
 
 </td>
 </tr>
