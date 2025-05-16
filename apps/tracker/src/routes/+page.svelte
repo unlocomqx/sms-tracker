@@ -1,5 +1,6 @@
 <script lang="ts">
   import LocationChecker from "../lib/components/LocationChecker.svelte"
+  import SmsChecker from "$lib/components/SmsChecker.svelte"
 
   let password = $state()
   let show_password = $state(false)
@@ -18,5 +19,7 @@
   <button>Save</button>
 
   <LocationChecker/>
+
+  <SmsChecker/>
 
 </main>

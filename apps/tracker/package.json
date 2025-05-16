@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "dev:android": "tauri android dev",
-    "build": "vite build",
+    "build": "tauri android build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -16,7 +16,8 @@
   "dependencies": {
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-geolocation": "^2.2.4",
-    "@tauri-apps/plugin-opener": "^2"
+    "@tauri-apps/plugin-opener": "^2",
+    "tauri-plugin-sms-api": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.6",
