@@ -12,6 +12,7 @@
     "geolocation:allow-request-permissions",
     "geolocation:allow-get-current-position",
     "geolocation:allow-watch-position",
-    "sms:default"
+    "sms:default",
+    "store:default"
   ]
 }

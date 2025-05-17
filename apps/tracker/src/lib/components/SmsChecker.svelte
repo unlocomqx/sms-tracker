@@ -1,5 +1,19 @@
 <script lang="ts">
   import {checkPermissions, onSmsReceived, requestPermissions} from "tauri-plugin-sms-api"
+  import {onMount} from "svelte"
+  import {load, Store} from "@tauri-apps/plugin-store"
+  import type {Settings} from "$lib/types"
+
+  let store: Store
+  let settings = $state<Settings | undefined>()
+
+  onMount(() => {
+    load('store.json', {autoSave: true})
+      .then(async s => {
+        store = s
+        settings = await store.get<Settings>('settings')
+      })
+  })
 
   let sms_permission = $state<string>('denied')
 
@@ -21,9 +35,13 @@
 
   let sms = $state('')
   onSmsReceived(({body, from}) => {
+    if (!settings || !body.startsWith(settings.prefix)) return
     console.log('sms received', body)
     sms = JSON.stringify(from)
+    log.push('Received SMS: from ${from} - ${body}')
   })
+
+  let log = $state<Array<string>>([])
 </script>
 
 <div>
@@ -39,5 +57,9 @@
 
 <div>
   SMS: {sms}
+</div>
+
+<div>
+
 </div>
 

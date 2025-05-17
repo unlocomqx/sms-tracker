@@ -17,6 +17,7 @@
     "@tauri-apps/api": "^2.5.0",
     "@tauri-apps/plugin-geolocation": "^2.2.4",
     "@tauri-apps/plugin-opener": "^2.2.6",
+    "@tauri-apps/plugin-store": "~2.2.0",
     "tauri-plugin-sms-api": "workspace:*"
   },
   "devDependencies": {
