@@ -5,7 +5,7 @@
   import {load, Store} from "@tauri-apps/plugin-store"
   import type {Settings} from "$lib/types"
   import {getCurrentLocation} from "$lib/location"
-  import {sendSMS, validateSms} from "$lib/sms"
+  import {getSmsCommand, sendSMS, validateSms} from "$lib/sms"
 
   let store: Store
   let settings = $state<Settings | undefined>()
@@ -55,20 +55,39 @@
 
     log.push(`Received SMS: from ${from} - ${clean_body}`)
 
-    log.push(`Getting location...`)
-    const location = await getCurrentLocation()
-    if (!location) {
-      log.push(`Unable to get location`)
+    const command = getSmsCommand(body)
+
+    if (!command) {
+      log.push('No sms command found: use this format: password command')
       return
     }
-    log.push(`Location: ${location.coords.longitude}, ${location.coords.latitude}`)
-    log.push(`Sending location...`)
 
-    const success = await sendSMS(from, `${settings.password} gps: [${location.coords.longitude},${location.coords.latitude}]`)
-    if (success) {
-      log.push(`Location sent to ${from}`)
-    } else {
-      log.push(`Unable to send location`)
+    log.push('Received command: ' + command)
+
+    switch (command) {
+      case 'gps':
+        log.push(`Getting location...`)
+        const location = await getCurrentLocation()
+        if (!location) {
+          log.push(`Unable to get location`)
+          return
+        }
+        log.push(`Location: ${location.coords.longitude}, ${location.coords.latitude}`)
+        log.push(`Sending location...`)
+
+        const success = await sendSMS(from, `${settings.password} gps: [${location.coords.longitude},${location.coords.latitude}]`)
+        if (success) {
+          log.push(`Location sent to ${from}`)
+        } else {
+          log.push(`Unable to send location`)
+        }
+        break
+
+      case 'gps:':
+        log.push('Reading received location...')
+        const new_location: Array<string> = body.split(' ')[2]?.replace('[', '')?.replace(']', '')?.split(',') ?? []
+        log.push(`Location: ${new_location?.[0]}, ${new_location?.[1]}`)
+        break
     }
   })
 

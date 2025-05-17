@@ -19,6 +19,10 @@ export function validateSms(sms: Sms, settings: Settings): { valid: boolean, rea
   return {valid: true, reason: ''}
 }
 
+export function getSmsCommand(body: string): string | undefined {
+  return body.split(' ')[1]
+}
+
 export async function sendSMS(to: string, body: string): Promise<boolean> {
   const {sms} = await checkPermissions()
   if (sms !== 'granted') {
