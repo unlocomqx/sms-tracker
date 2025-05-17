@@ -5,6 +5,7 @@
 
   let store: Store
   let settings = $state<Settings>({
+    target: '',
     from: '',
     password: ''
   })

@@ -17,7 +17,7 @@ export async function checkPermissions(): Promise<{ sms: string }> {
 }
 
 export async function requestPermissions(): Promise<{ sms: string }> {
-  return invoke('plugin:geolocation|request_permissions', {
+  return invoke('plugin:sms|request_permissions', {
     permissions: ['sms']
   })
 }
