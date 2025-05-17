@@ -15,3 +15,11 @@ pub(crate) async fn request_permissions<R: Runtime>(
 ) -> Result<PermissionStatus> {
     app.sms().request_permissions(permissions)
 }
+
+#[command]
+pub(crate) async fn send_sms<R: Runtime>(
+    app: AppHandle<R>,
+    to: Option<Vec<PermissionType>>,
+) -> Result<PermissionStatus> {
+    app.sms().send_sms(permissions)
+}

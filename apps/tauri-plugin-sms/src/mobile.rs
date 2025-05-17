@@ -42,4 +42,16 @@ impl<R: Runtime> Sms<R> {
                 )
                 .map_err(Into::into)
         }
+
+    pub fn request_permissions(
+            &self,
+            permissions: Option<Vec<PermissionType>>,
+        ) -> crate::Result<PermissionStatus> {
+            self.0
+                .run_mobile_plugin(
+                    "requestPermissions",
+                    serde_json::json!({ "permissions": permissions }),
+                )
+                .map_err(Into::into)
+        }
 }

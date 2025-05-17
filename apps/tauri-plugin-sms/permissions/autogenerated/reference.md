@@ -199,4 +199,30 @@ Denies the request_permissions command without any pre-configured scope.
 
 </td>
 </tr>
+
+<tr>
+<td>
+
+`sms:allow-send-sms`
+
+</td>
+<td>
+
+Enables the send_sms command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`sms:deny-send-sms`
+
+</td>
+<td>
+
+Denies the send_sms command without any pre-configured scope.
+
+</td>
+</tr>
 </table>

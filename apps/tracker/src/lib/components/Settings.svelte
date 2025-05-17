@@ -5,6 +5,7 @@
 
   let store: Store
   let settings = $state<Settings>({
+    from: '',
     password: ''
   })
   let show_password = $state(false)
@@ -22,12 +23,29 @@
   }
 </script>
 
-<label for="password">Password:</label>
+<div>
 
-<input bind:value={settings.password} id="password" name="password" required type={show_password ? 'text' : 'password'}>
+  <div>
+    <label for="from">Allow from numbers (comma separated):</label>
+    <input bind:value={settings.from} id="from" name="from" placeholder="22222222,33333333">
+    <p>
+      Leave empty to allow from any numbers (not recommended).
+    </p>
+  </div>
 
-<button onclick={() => show_password = !show_password} type="button">
-  {show_password ? 'Hide' : 'Show'}
-</button>
+  <div>
+    <label for="password">Password:</label>
 
-<button onclick={saveSettings}>Save</button>
+    <input bind:value={settings.password} id="password" name="password" required
+           type={show_password ? 'text' : 'password'}>
+
+    <button onclick={() => show_password = !show_password} type="button">
+      {show_password ? 'Hide' : 'Show'}
+    </button>
+  </div>
+
+  <div>
+    <button onclick={saveSettings}>Save</button>
+  </div>
+
+</div>

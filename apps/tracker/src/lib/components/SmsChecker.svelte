@@ -1,8 +1,11 @@
 <script lang="ts">
+  import type {Sms} from "tauri-plugin-sms-api"
   import {checkPermissions, onSmsReceived, requestPermissions} from "tauri-plugin-sms-api"
   import {onMount} from "svelte"
   import {load, Store} from "@tauri-apps/plugin-store"
   import type {Settings} from "$lib/types"
+  import {getCurrentLocation} from "$lib/location"
+  import {sendSMS, validateSms} from "$lib/sms"
 
   let store: Store
   let settings = $state<Settings | undefined>()
@@ -11,7 +14,6 @@
     load('store.json', {autoSave: true})
       .then(async s => {
         store = s
-        settings = await store.get<Settings>('settings')
       })
   })
 
@@ -33,12 +35,41 @@
     return sms
   }
 
-  let sms = $state('')
-  onSmsReceived(({body, from}) => {
-    if (!settings || !body.startsWith(settings.prefix)) return
-    console.log('sms received', body)
-    sms = JSON.stringify(from)
-    log.push('Received SMS: from ${from} - ${body}')
+  onSmsReceived(async (sms: Sms) => {
+    const {body, from} = sms
+    settings = await store.get<Settings>('settings')
+
+    if (!settings) {
+      log.push(`No settings found, please set a password then try again.`)
+      return
+    }
+
+    const clean_body = body.replace(settings.password, '***')
+
+    const {valid, reason} = validateSms(sms, settings)
+
+    if (!valid) {
+      log.push(`Received invalid SMS from ${from} - ${clean_body}: ${reason}`)
+      return
+    }
+
+    log.push(`Received SMS: from ${from} - ${clean_body}`)
+
+    log.push(`Getting location...`)
+    const location = await getCurrentLocation()
+    if (!location) {
+      log.push(`Unable to get location`)
+      return
+    }
+    log.push(`Location: ${location.coords.longitude}, ${location.coords.latitude}`)
+    log.push(`Sending location...`)
+
+    const success = await sendSMS(from, `Location: ${location.coords.longitude}, ${location.coords.latitude}`)
+    if (success) {
+      log.push(`Location sent`)
+    } else {
+      log.push(`Unable to send location`)
+    }
   })
 
   let log = $state<Array<string>>([])
@@ -55,11 +86,12 @@
   {/await}
 </div>
 
-<div>
-  SMS: {sms}
-</div>
+<pre>{log.join('\n')}</pre>
 
-<div>
-
-</div>
-
+<style>
+    pre {
+        white-space: pre-wrap;
+        border: 1px solid gray;
+        padding: 1rem;
+    }
+</style>
