@@ -2,6 +2,7 @@ use tauri::{command, AppHandle, Runtime};
 
 use crate::{PermissionType, SmsExt};
 use crate::{PermissionStatus, Result};
+use crate::{SendSmsPayload, SendSmsStatus};
 
 #[command]
 pub(crate) async fn check_permissions<R: Runtime>(app: AppHandle<R>) -> Result<PermissionStatus> {
@@ -19,7 +20,7 @@ pub(crate) async fn request_permissions<R: Runtime>(
 #[command]
 pub(crate) async fn send_sms<R: Runtime>(
     app: AppHandle<R>,
-    to: Option<Vec<PermissionType>>,
-) -> Result<PermissionStatus> {
-    app.sms().send_sms(permissions)
+    payload: Option<SendSmsPayload>,
+) -> Result<SendSmsStatus> {
+    app.sms().send_sms(payload)
 }

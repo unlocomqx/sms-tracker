@@ -5,6 +5,7 @@ use tauri::{
 };
 use crate::{PermissionStatus};
 use crate::{PermissionType};
+use crate::{SendSmsPayload, SendSmsStatus};
 
 #[cfg(target_os = "ios")]
 tauri::ios_plugin_binding!(init_plugin_sms);
@@ -43,14 +44,14 @@ impl<R: Runtime> Sms<R> {
                 .map_err(Into::into)
         }
 
-    pub fn request_permissions(
+    pub fn send_sms(
             &self,
-            permissions: Option<Vec<PermissionType>>,
-        ) -> crate::Result<PermissionStatus> {
+            payload: Option<SendSmsPayload>,
+        ) -> crate::Result<SendSmsStatus> {
             self.0
                 .run_mobile_plugin(
-                    "requestPermissions",
-                    serde_json::json!({ "permissions": permissions }),
+                    "sendSms",
+                    payload,
                 )
                 .map_err(Into::into)
         }

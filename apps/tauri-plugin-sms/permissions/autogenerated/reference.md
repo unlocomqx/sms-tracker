@@ -8,6 +8,7 @@ Default permissions for the plugin
 - `allow-request-permissions`
 - `allow-register-listener`
 - `allow-registerListener`
+- `allow-send-sms`
 
 ## Permission Table
 

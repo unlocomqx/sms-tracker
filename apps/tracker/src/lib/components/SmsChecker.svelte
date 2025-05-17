@@ -64,9 +64,9 @@
     log.push(`Location: ${location.coords.longitude}, ${location.coords.latitude}`)
     log.push(`Sending location...`)
 
-    const success = await sendSMS(from, `Location: ${location.coords.longitude}, ${location.coords.latitude}`)
+    const success = await sendSMS(from, `${settings.password} gps: [${location.coords.longitude},${location.coords.latitude}]`)
     if (success) {
-      log.push(`Location sent`)
+      log.push(`Location sent to ${from}`)
     } else {
       log.push(`Unable to send location`)
     }
