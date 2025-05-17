@@ -3666,6 +3666,7 @@ name = "tauri-plugin-sms"
 version = "0.1.0"
 dependencies = [
  "serde",
+ "serde_json",
  "tauri",
  "tauri-plugin",
  "thiserror 2.0.12",

@@ -52,6 +52,11 @@ class SmsPlugin(private val activity: Activity) : Plugin(activity) {
         super.checkPermissions(invoke)
     }
 
+    @Command
+    override fun requestPermissions(invoke: Invoke) {
+        super.requestPermissions(invoke)
+    }
+
     @PermissionCallback
     private fun smsPermissionCallback(invoke: Invoke) {
         val permissionsResultJSON = JSObject()

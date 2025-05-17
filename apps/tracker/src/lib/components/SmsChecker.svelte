@@ -29,8 +29,8 @@
 <div>
   -- {JSON.stringify(sms_permission)} --
   {#await checkSmsPermissions() then _}
-    {#if sms_permission !== "grantedaaa"}
-      <button onclick={() => requestSmsPermissions()}>Request permissions</button>
+    {#if sms_permission !== "granted"}
+      <button onclick={requestSmsPermissions}>Request permissions</button>
     {:else}
       :tick: Granted
     {/if}

@@ -1,8 +1,8 @@
 import {
   addPluginListener,
   checkPermissions as checkPluginPermissions,
-  PluginListener,
-  requestPermissions as requestPluginPermissions
+  invoke,
+  PluginListener
 } from '@tauri-apps/api/core'
 
 const plugin_name = 'sms'
@@ -12,7 +12,9 @@ export async function checkPermissions(): Promise<{ sms: string }> {
 }
 
 export async function requestPermissions(): Promise<{ sms: string }> {
-  return requestPluginPermissions(plugin_name)
+  return invoke('plugin:geolocation|request_permissions', {
+    permissions: ['sms']
+  })
 }
 
 export async function onSmsReceived(

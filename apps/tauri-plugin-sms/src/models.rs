@@ -1,6 +1,13 @@
 use serde::{Deserialize, Serialize};
 use tauri::plugin::PermissionState;
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "specta", derive(specta::Type))]
+#[serde(rename_all = "camelCase")]
+pub enum PermissionType {
+    Sms
+}
+
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[cfg_attr(feature = "specta", derive(specta::Type))]
 #[serde(rename_all = "camelCase")]

@@ -1,9 +1,10 @@
-use serde::de::DeserializeOwned;
+use serde::{de::DeserializeOwned, Serialize};
 use tauri::{
     plugin::{PluginApi, PluginHandle},
     AppHandle, Runtime,
 };
 use crate::{PermissionStatus};
+use crate::{PermissionType};
 
 #[cfg(target_os = "ios")]
 tauri::ios_plugin_binding!(init_plugin_sms);
@@ -30,9 +31,15 @@ impl<R: Runtime> Sms<R> {
             .map_err(Into::into)
     }
 
-    pub fn request_permissions(&self) -> crate::Result<PermissionStatus> {
-        self.0
-            .run_mobile_plugin("requestPermissions", ())
-            .map_err(Into::into)
-    }
+    pub fn request_permissions(
+            &self,
+            permissions: Option<Vec<PermissionType>>,
+        ) -> crate::Result<PermissionStatus> {
+            self.0
+                .run_mobile_plugin(
+                    "requestPermissions",
+                    serde_json::json!({ "permissions": permissions }),
+                )
+                .map_err(Into::into)
+        }
 }

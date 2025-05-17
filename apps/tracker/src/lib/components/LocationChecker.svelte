@@ -40,9 +40,9 @@
 <div>
   {#await checkLocationPermissions() then location_permission}
     {#if location_permission !== "granted"}
-      <button onclick={() => requestLocationPermissions()}>Request permissions</button>
+      <button onclick={requestLocationPermissions}>Request permissions</button>
     {:else}
-      <button onclick={() => testGetLocation()}>Test location</button>
+      <button onclick={testGetLocation}>Test location</button>
 
       {#if current_pos_state !== 'idle'}
         <div>
