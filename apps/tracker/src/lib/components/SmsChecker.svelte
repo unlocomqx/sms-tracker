@@ -93,5 +93,7 @@
         white-space: pre-wrap;
         border: 1px solid gray;
         padding: 1rem;
+        max-height: 300px;
+        overflow-y: auto;
     }
 </style>
